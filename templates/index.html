@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estacionamento</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Estacionamento</h1>
+        
+        <form action="/cadastrar" method="POST">
+            <label for="cor">Cor do Carro:</label>
+            <input type="text" id="cor" name="cor" required>
+
+            <label for="placa">Placa do Carro:</label>
+            <input type="text" id="placa" name="placa" required>
+
+            <label for="motorista">Nome do Motorista:</label>
+            <input type="text" id="motorista" name="motorista" required>
+
+            <label for="horas">Horas Estacionado:</label>
+            <input type="number" id="horas" name="horas" min="1" required>
+
+            <button type="submit">Cadastrar Veículo</button>
+        </form>
+
+        <h2>Veículos Cadastrados</h2>
+        <table>
+            <tr>
+                <th>Cor</th>
+                <th>Placa</th>
+                <th>Motorista</th>
+                <th>Horas</th>
+                <th>Preço (R$)</th>
+            </tr>
+            {% for veiculo in veiculos %}
+            <tr>
+                <td>{{ veiculo[0] }}</td>
+                <td>{{ veiculo[1] }}</td>
+                <td>{{ veiculo[2] }}</td>
+                <td>{{ veiculo[3] }}</td>
+                <td>{{ veiculo[4] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        {% if total is defined %}
+        <h2>Total Arrecadado: R$ {{ total }}</h2>
+        {% endif %}
+
+        <form action="/total" method="GET">
+            <button type="submit">Calcular Total Arrecadado</button>
+        </form>
+    </div>
+</body>
+</html>
